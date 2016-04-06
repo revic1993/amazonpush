@@ -1,12 +1,21 @@
-var _this = this;
-
 exports.newGroup = function(data){
-  return Group.find({name:data.groupName})
+  var groupExist = false,holder={};
+  return Group.findOrCreate({name:data.groupName,created_by:data.name})
               .then(function(group){
-                  if(!group)
-                  else
-                    return _this.createGroup(data);
-                    return group;
+                  holder = group;
+                  if(group.topicArn){
+                    return {TopicArn:group.topicArn};
+                  }else{
+                    return AmazonService.createTopic(group.name);
+                  }
+              })
+              .then(function(snsresponse){
+                  if(holder.topicArn){
+                      return holder;
+                  }else{
+                    holder.topicArn = snsresponse.TopicArn;
+                    return holder.save();
+                  }
               })
               .then(function(group){
                   data.group = group;
@@ -19,34 +28,7 @@ exports.newGroup = function(data){
                 return Common.returnOk("Operation successfully completed",{group:data.group});
               })
               .catch(function(err){
-                console.log("this is from find");
                 console.log(err);
                 return Common.returnError(err);
               });
 };
-
-exports.createGroup = function(data){
-  var holder = {};
-
-  return Group.create({name:data.groupName,created_by:data.name})
-              .then(function(group){
-                    holder = group;
-                    console.log(group);
-                    return AmazonService.createTopic(group.name);
-              })
-              .then(function(snsresponse){
-                  holder.topicArn = snsresponse.TopicArn;
-                  return holder.save();
-              })
-              .catch(function(err){
-                  console.log("this is from create");
-                  console.log(err);
-                  return err;
-              });
-};
-
-
-//
-// module.exports = {
-//     newGroup : newGroup,
-// };

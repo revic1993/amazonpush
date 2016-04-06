@@ -12,6 +12,7 @@ module.exports = {
               .then(function(user){
                   if(!user)
                     throw "No such user exist";
+                  
                   params.user = user;
                   return GroupService.newGroup(params);
               })
