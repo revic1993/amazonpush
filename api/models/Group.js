@@ -22,8 +22,11 @@ module.exports = {
   		},
   		users:{
   			collection:"Membership",
-  			via:"group",           
+  			via:"group",
   		},
+      topicArn : {
+        type:"string"
+      },
       toJSON:function(){
         var obj = this.toObject();
         delete obj.createdAt;
@@ -32,4 +35,3 @@ module.exports = {
       }
   }
 };
-

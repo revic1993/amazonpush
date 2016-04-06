@@ -21,5 +21,6 @@
  */
 
 module.exports.routes = {
-"POST /signup" : "UserController.new"
+"POST /signup" : "UserController.new",
+"POST /group/new":"GroupController.new"
 };

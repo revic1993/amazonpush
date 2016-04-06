@@ -7,6 +7,10 @@ module.exports = {
                 if(!user)
                   throw "User creation failed";
                 user.name = data.name;
+
+                if(!user.credentials)
+                  user.credentials = {};
+
                 user.credentials.gcm = data.gcm;
                 return user.save();
             })
@@ -25,7 +29,13 @@ module.exports = {
               return AmazonService.createEndPoint(data.user.credentials.gcm);
             })
             .then(function(snsdata){
+                if(!snsdata)
+                  throw "Amazon service returned error";
                 user = data.user;
+
+                if(!user.credentials)
+                  user.credentials = {};
+
                 user.credentials.endpoint = snsdata.EndpointArn;
                 return user.save();
             })
@@ -40,6 +50,7 @@ module.exports = {
               }
             })
             .catch(function(err){
+                console.log(err);
                 return Common.returnError(err);
             });
   }

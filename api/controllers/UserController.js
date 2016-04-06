@@ -8,7 +8,7 @@
 module.exports = {
 	new : function(req,res,next){
 
-		var name = req.param('user'),
+		var name = req.param('name'),
 		 		mobile = req.param('mobile'),
 				gcm = req.param('gcm');
 
@@ -19,6 +19,7 @@ module.exports = {
 
 		 UserService.createNewUser(req.allParams())
 		 						.then(function(value){
+										console.log(value);
 		 						    return Common.genericReturn(res,value);
 		 						});
 	}

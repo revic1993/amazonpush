@@ -1,7 +1,8 @@
 module.exports.constants = {
   amazon : {
         accessKeyId: 'AKIAI46E5SAS6JEW275Q',
-        secretAccessKey: '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'
+        secretAccessKey: '2gZbJkJeYpXwKCJj2kORkTWNpyk6rroqSburGxJ/',
+        region: 'us-west-2'
   },
   PlatformArn : "arn:aws:sns:us-west-2:109636230748:app/GCM/Pushnotifications",
   RESPONSE_TYPE:{

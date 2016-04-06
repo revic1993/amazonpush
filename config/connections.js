@@ -58,11 +58,18 @@ module.exports.connections = {
   ***************************************************************************/
   MongoDB: {
     adapter: 'sails-mongo',
-    host: 'localhost',
-    port: 27017,
+    url:"mongodb://revic1993:lordsith123@ds021689.mlab.com:21689/chat",
+    // host: 'localhost',
+    // port: 27017,
     // user: 'username',
     // password: 'password',
-    database: 'amazonpush'
+    poolSize: 20,
+    socketOptions: {
+        noDelay: false ,
+        connectTimeoutMS: 0,
+        socketTimeoutMS: 0,
+        keepAlive:1
+    }
   },
 
   /***************************************************************************

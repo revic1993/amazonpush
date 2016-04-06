@@ -7,6 +7,9 @@ module.exports = {
 		group:{
 			model:'Group'
 		},
+		subscriptionArn:{
+			type:"string"
+		},
 		toJSON:function(){
 		  var obj = this.toObject();
 		  delete obj.createdAt;
